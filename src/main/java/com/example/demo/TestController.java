@@ -11,4 +11,9 @@ public class TestController {
         System.out.println("홈");
         return "testfile/login";
     }
+
+    @GetMapping("/testheader")
+    public String header(){
+        return "layout/haeder";
+    }
 }

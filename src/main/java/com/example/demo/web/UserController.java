@@ -35,7 +35,9 @@ public class UserController {
     //회원가입요청이 왔을때 처리받는 컨트롤러
     @PostMapping("/auth/join")
 	public String join(User user) {
+        System.out.println("나옴?");
 		userRepository.save(user);
+        System.out.println("안나옴?");
 		return"redirect:/auth/loginForm";
 	}
 
@@ -50,9 +52,9 @@ public class UserController {
 			System.out.println("주소 : "+ roadFullAddr);
 			model.addAttribute("roadFullAddr",roadFullAddr);
 			model.addAttribute("inputYn",inputYn);
-			return   "juso/jusoPopup";
+			return "juso/jusoPopup";
 		}
 		
 
-        
+
 }
