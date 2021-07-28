@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNISHOP Sign up</title>
+    <title>UNISHOP Find ID</title>
     <style>
   
         .d-flex{
@@ -94,6 +94,10 @@
         .logo{
           height: 60px;
         }
+
+        
+
+        
   </style>
 </head>
 <body>
@@ -109,7 +113,7 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div>
-                  <a class="navbar-brand" href="/"><img class="logo" src="../images/logo.png"></a>
+                  <a class="navbar-brand" href="#"><img class="logo" src="./images/logo.png"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                   <ul class="navbar-nav">
@@ -187,6 +191,7 @@
                 </div>
               
           </nav>
+
           
 
           <nav class="navbar navbar-light bg-light">
@@ -198,7 +203,7 @@
                   </div>
                 </div>
                 <a class="navbar-brand"></a>
-                <form class="d-flex" >
+                <form class="d-flex">
                   <input class="form-control me-2" type="search" placeholder="키워드로 검색 예)히트택" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
@@ -206,6 +211,117 @@
             </nav>
           <!-- Navbar content -->
           </nav>
+        
+        
+      
+      
+      
        </div>
       </div>
     </div>
+
+    <!--login-->
+    <div class="main">
+      <main class="form-signin">
+    
+
+        <form action="/auth/findIdsms" method="post">
+          
+          <h1 class="h3 mb-3 fw-normal">Please input your phonNumber</h1>
+      
+          <div class="form-floating">
+            <input type="text" class="form-control" id="phonNumber" placeholder="name@example.com" name="phonNumber">
+            <label for="floatingInput">phonNumber</label>
+          </div>
+          
+          <button class="w-100 btn btn-lg btn-primary" id="sendPhoneNumber" type="submit" style="background-color: #f5f5f5; border:  #f8f9fa; color: #383838;" >인증하기 </button>
+        </form>
+
+
+          <div class="form-floating">
+            <input type="email" class="form-control" id="check" placeholder="name@example.com" name="check">
+            <label for="floatingInput">인증번호</label>
+          </div>
+          
+
+          <!-- <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div> -->
+      
+          <div class="checkbox mb-3">
+            <!-- <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label> -->
+            <div class="find">
+              <!-- <div class="find-id">
+                <a href="#" style="color: #868686">Find ID</a>
+                <a href="#" style="color: #868686">/ PW</a>
+              </div> -->
+              <div>
+                <a href="#" style="color: #868686">Sign Up</a>
+              </div>
+            </div>
+          </div>
+          
+          <button class="w-100 btn btn-lg btn-primary" type="submit" style="background-color: #f5f5f5; border:  #f8f9fa; color: #383838;" >Confirm </button>
+          <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+     
+      
+        
+      </main>
+    </div>
+
+    <!--Footer-->
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Footer</p>
+    </div>
+
+<script>
+        $('#sendPhoneNumber').click(function(){
+            let phoneNumber = $('#inputPhoneNumber').val();
+            Swal.fire('인증번호 발송 완료!');
+
+
+            $.ajax({
+                type: "GET",
+                url: "/check/sendSMS",
+                data: {
+                    "phoneNumber" : phoneNumber
+                },
+                success: function(res){
+                    $('#checkBtn').click(function(){
+                        if($.trim(res) ==$('#inputCertifiedNumber').val()){
+                            Swal.fire(
+                                '인증성공!',
+                                '휴대폰 인증이 정상적으로 완료되었습니다.',
+                                'success'
+                            )
+
+                            $.ajax({
+                                type: "GET",
+                                url: "/update/phone",
+                                data: {
+                                    "phoneNumber" : $('#inputPhoneNumber').val()
+                                }
+                            })
+                            document.location.href="/home";
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: '인증오류',
+                                text: '인증번호가 올바르지 않습니다!',
+                                footer: '<a href="/home">다음에 인증하기</a>'
+                            })
+                        }
+                    })
+
+
+                }
+            })
+        });
+</script>
+
+
+</body>
+</html>

@@ -82,3 +82,12 @@ spring:
     ansi:
       enabled: always
 ```
+
+###collSms 의존성
+```bash
+ <dependency>
+    <groupId>net.nurigo</groupId>
+    <artifactId>javaSDK</artifactId>
+    <version>2.2</version>
+  </dependency>
+```
